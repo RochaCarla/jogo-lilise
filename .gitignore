@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+
+# Android (gerado pelo Capacitor — os builds ficam aqui)
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+.DS_Store
