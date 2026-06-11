@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { bus, state } from '../core/state';
-import { circleButton, pillButton, FONT } from './widgets';
+import { circleButton, fullscreenButton, pillButton, FONT } from './widgets';
 
 export type GameMode = 'decor' | 'play';
 
@@ -60,6 +60,8 @@ export class Hud {
 
     this.container.add(circleButton(scene, 1158, 42, '🛍️', cb.onShop));
     this.container.add(circleButton(scene, 1226, 42, '🙂', cb.onCharacter));
+    const fs = fullscreenButton(scene, 904, 42);
+    if (fs) this.container.add(fs);
 
     const onCoins = (coins: number) => {
       this.coinsText.setText(`🪙 ${coins}`);

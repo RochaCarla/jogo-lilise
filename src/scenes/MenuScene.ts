@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { LEVELS } from '../data/levels';
 import { state } from '../core/state';
 import { ensureCharTexture } from '../core/charTexture';
-import { pillButton, FONT } from '../ui/widgets';
+import { fullscreenButton, pillButton, FONT } from '../ui/widgets';
 
 /** Tela inicial: escolha de fase + atalho para o editor de personagem. */
 export class MenuScene extends Phaser.Scene {
@@ -127,5 +127,7 @@ export class MenuScene extends Phaser.Scene {
       w: 250,
       h: 56,
     });
+
+    fullscreenButton(this, 42, 45);
   }
 }

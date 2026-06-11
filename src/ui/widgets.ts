@@ -71,6 +71,28 @@ export function pillButton(
   return c;
 }
 
+/**
+ * Botão de tela cheia (some no app nativo, onde já é tela cheia).
+ * Em celulares, ao entrar em tela cheia também trava a orientação em paisagem.
+ */
+export function fullscreenButton(scene: Phaser.Scene, x: number, y: number): Phaser.GameObjects.Container | null {
+  const isNativeApp = Boolean((window as never as { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor?.isNativePlatform?.());
+  if (isNativeApp || !scene.scale.fullscreen.available) return null;
+  return circleButton(scene, x, y, '⛶', () => {
+    if (scene.scale.isFullscreen) {
+      scene.scale.stopFullscreen();
+    } else {
+      scene.scale.startFullscreen();
+      const orientation = screen.orientation as ScreenOrientation & {
+        lock?: (o: string) => Promise<void>;
+      };
+      orientation.lock?.('landscape').catch(() => {
+        /* alguns navegadores não permitem; sem problema */
+      });
+    }
+  });
+}
+
 /** Texto flutuante (+12 🪙, ⭐...) que sobe e some. */
 export function floatText(scene: Phaser.Scene, x: number, y: number, msg: string, color = '#ff9800'): void {
   const t = scene.add
